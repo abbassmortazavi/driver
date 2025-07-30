@@ -78,14 +78,13 @@ use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 class BidListController extends ApiController
 {
     /**
-     * Handle the incoming request..
+     * Handle the incoming request.
      *
      * @param  Request  $request
      * @return JsonResponse
      */
     public function __invoke(Request $request): JsonResponse
     {
-        //TODO::
         $driver = auth()->user()->driver;
 
         $bids = $driver->bids()->with(['transport', 'transport.order'])
