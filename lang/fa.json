@@ -1,0 +1,11 @@
+{
+    "Driver Not Found": "راننده ای یافت نشد",
+    "Driver Is Not Assign To Vehicle": "این راننده با این مشخصات به این ماشین اساین نشده است",
+    "Driver Vehicle Updated Successfully": "وسیله نقلیه مورد نظر باموفقیت به روز شده است",
+    "Driver Vehicle Deleted Successfully": "وسیله نقلیه مورد نظر با موفقبت حذف شد",
+    "Vehicle Is Active Can Not To Delete": "وسیله نقلیه ای که در حالت فعال است نمیتوانید حذف کنید",
+    "Send OTP Code Successfully!": "کد تایید با موفقیت ارسال شده است",
+    "OTP Code is Not Valid": "کد تایید وارد شده معتبر نیست",
+    "OTP Code Is Used Or Expired" : "کد وارد شده منقضی یا استفاده شده است.",
+    "After 2 Minutes You can Requested Again!": "بعد از 2 دقیقه مجددا می توانید در خواست کد تایید نمایید!"
+}
