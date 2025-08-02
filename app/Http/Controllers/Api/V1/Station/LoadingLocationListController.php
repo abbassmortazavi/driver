@@ -50,6 +50,7 @@ class LoadingLocationListController extends ApiController
 {
     public function __invoke(Station $station): JsonResponse
     {
+        //check me
         return ApiResponse::ok(LoadingLocationResource::collection($station->loadingLocations));
     }
 }
