@@ -1,0 +1,58 @@
+name: Build And Push Image
+
+on:
+  workflow_dispatch:
+  workflow_call:
+    inputs:
+      environment:
+        required: false
+        type: string
+        default: 'production'
+env:
+  REGION: ${{ vars.REGION }}
+  ECR_REPOSITORY: ${{ vars.ECR_REPOSITORY }}
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  build:
+    name: Build for ${{ inputs.environment }}
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Login to ECR
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ secrets.ECR_REGISTRY }}
+          username: ${{ secrets.ECR_USERNAME }}
+          password: ${{ secrets.ECR_PASSWORD }}
+
+      - name: Setup GitHub secrets
+        run: |
+          echo '{"github-oauth": {"github.com": "${{ secrets.ORG_GITHUB_TOKEN }}"}}' >> auth.json
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build, tag, and push image to Amazon ECR
+        id: build-image
+        env:
+          ECR_REGISTRY: ${{ secrets.ECR_REGISTRY }}
+          ECR_REPOSITORY: ${{ vars.ECR_REPOSITORY }}
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          # Build a docker container and
+          # push it to ECR so that it can
+          # be deployed to ECS.
+          docker build --secret id=composer_auth,src=auth.json -t $ECR_REGISTRY/$ECR_REPOSITORY:latest -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY --all-tags
+          echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
+
+      - name: Image digest
+        run: echo ${{ steps.build-image.outputs.digest }}
