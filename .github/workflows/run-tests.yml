@@ -55,9 +55,14 @@ jobs:
       - name: Copy .env
         run: php -r "file_exists('.env') || copy('.env.example', '.env');"
 
-      - name: Setup GitHub secrets
+      - name: Setup Composer GitHub token
+        env:
+          GH_TOKEN: ${{ secrets.ORG_GITHUB_TOKEN }}
         run: |
-          echo '{"github-oauth": {"github.com": "${{ secrets.ORG_GITHUB_TOKEN }}"}}' >> auth.json
+          mkdir -p ~/.composer
+          echo '{"github-oauth": {"github.com": "'"$GH_TOKEN"'"}}' > ~/.composer/auth.json
+          # Verify the auth.json was created properly
+          cat ~/.composer/auth.json
 
       - name: Cache Composer Dependencies
         uses: actions/cache@v4
