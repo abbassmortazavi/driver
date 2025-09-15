@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: patoghi-driver
+  namespace: argocd
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/abbassmortazavi/driver.git
+    targetRevision: main
+    path: dev
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: myapp-driver
+
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+
+    automated:
+      selfHeal: true
+      prune: true

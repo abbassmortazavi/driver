@@ -1,0 +1,30 @@
+<?php
+
+return [
+    'user_register_error' => 'کاربر ثبت نام نشده است',
+    'refresh_token_created' => 'رفرش توکن با موفقیت ایجاد شد.',
+    'national_id_is_invalid' => 'کد ملی صحیح نیست.',
+    'mobile_number_is_invalid' => 'شماره موبایل صحیح نیست.',
+    'national_code_and_mobile_number_do_not_match' => 'کدملی و شماره همراه مطابقت ندارند.',
+    'national_code_and_plate_number_do_not_match' => 'کدملی و شماره پلاک مطابقت ندارند.',
+    'driver_not_exist' => 'راننده وجود ندارد.',
+    'user_not_exist' => 'کاربر وجود ندارد.',
+    'driver_not_found' => ' ای یافت نشد راننده',
+    'kyc_log_not_found' => 'یافت نشد kyc',
+    'processing_video_response_will_be_ready_within_the_next_10_minutes' => 'در حال پردازش ویدیو، پاسخ طی 10 دقیقه آینده آماده خواهد شد.',
+    'your_biometric_validation_was_successful' => 'راننده محترم اعتبارسنجی بیومتریک شما با موفقیت انجام شد.',
+    'your_biometric_validation_encountered_an_error' => 'راننده محترم اعتبارسنجی بیومتریک شما با خطا روبرو شد.',
+    'driver_already_exist' => 'راننده از قبل وجود دارد.',
+    'you_have_a_pending_biometric_verification_please_wait' => 'شما یک درخواست بیومتریک در انتظار دارید، لطفاً صبر کنید.',
+    'version_is_not_found' => 'ورژن مورد نظر یافت نشد!',
+    'your_version_is_not_Valid' => 'ورژن وارد شده معتبر نیست!',
+    'you_had_been_bid_before' => 'شما قبلا قیمت گذاری کردید! ',
+    'transport_not_found' => 'حمل نقلی یافت نشد!! ',
+    'shipment_not_found' => 'بار یافت نشد!! ',
+    'order_not_found' => 'سفارشی یافت نشد!! ',
+    'you_can_not_do_this_bid' => 'شما نمیتوانید این مناقصه را انجام دهید!! ',
+    'transport_has_not_validate_status' => 'وسیله نقلیه مورد نظر وضعیت نامناسب قرار دارد.',
+    'this_bid_does_not_belong_to_you' => 'این بید به شما تعلق ندارد!',
+    'only_pending_bids_can_be_cancelled' => 'فقط بیدهایی که در وضعیت پندینگ هستند میتوانند کنسل شوند',
+    'you_do_not_own_this_ticket' => 'شما صاحب این تیکت نیستید!'
+];
