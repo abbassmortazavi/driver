@@ -5,7 +5,7 @@ concurrency: development
 on:
   workflow_dispatch:
   push:
-    branches: [ "development" ]
+    branches: [ "develop" ]
 
 permissions:
   id-token: write
