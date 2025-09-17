@@ -90,7 +90,7 @@
     "repositories": [
         {
             "type": "git",
-            "url": "https://github.com/patoughi/platform-tms-common.git",
+            "url": "git@github.com:patoughi/platform-tms-common.git",
             "options": {
                 "symlink": false
             }

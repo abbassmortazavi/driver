@@ -10,7 +10,7 @@ on:
         default: 'production'
 
 env:
-  DOCKER_HUB_REPOSITORY: abbass69/github-actions  # 👈 Change this
+  DOCKER_HUB_REPOSITORY: abbass69/driver  # 👈 Change this
 
 permissions:
   contents: read
