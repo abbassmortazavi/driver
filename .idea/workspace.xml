@@ -4,8 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="50707761-88e6-442f-8c52-0be07bdd72de" name="Changes" comment="init files">
-      <change beforePath="$PROJECT_DIR$/.github/workflows/run-build.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/run-build.yml" afterDir="false" />
+    <list default="true" id="50707761-88e6-442f-8c52-0be07bdd72de" name="Changes" comment="bug fix">
       <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -264,7 +263,7 @@
       <workItem from="1754122090481" duration="3946000" />
       <workItem from="1754139101552" duration="1754000" />
       <workItem from="1754200181022" duration="54000" />
-      <workItem from="1758099821291" duration="2446000" />
+      <workItem from="1758099821291" duration="2786000" />
     </task>
     <task id="LOCAL-00001" summary="change application.yml">
       <option name="closed" value="true" />
@@ -330,7 +329,15 @@
       <option name="project" value="LOCAL" />
       <updated>1758101363779</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="bug fix">
+      <option name="closed" value="true" />
+      <created>1758102281567</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1758102281567</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -342,6 +349,7 @@
     <MESSAGE value="test me" />
     <MESSAGE value="remove fles" />
     <MESSAGE value="init files" />
-    <option name="LAST_COMMIT_MESSAGE" value="init files" />
+    <MESSAGE value="bug fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="bug fix" />
   </component>
 </project>
