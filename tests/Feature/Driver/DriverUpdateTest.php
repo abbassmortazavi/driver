@@ -7,9 +7,9 @@ use App\Models\PublicUser;
 use App\Repository\Driver\DriverRepositoryInterface;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Laravel\Passport\Passport;
+use Mockery;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
-use Mockery;
 
 class DriverUpdateTest extends TestCase
 {

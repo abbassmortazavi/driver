@@ -5,12 +5,12 @@ namespace App\Http\Requests\Ticket;
 use App\Http\Requests\Traits\HashidDecodable;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use OpenApi\Attributes as OA;
 use Patoughi\Common\Enums\TicketPriorityEnum;
 use Patoughi\Common\Enums\TicketStatusEnum;
-use OpenApi\Attributes as OA;
 
 #[OA\Schema(
-    required: ['category_id', 'subject', 'description', 'status'],
+    required: ['category_id', 'subject', 'description'],
     properties: [
         new OA\Property(property: 'category_id', type: 'string', example: 'example'),
         new OA\Property(property: 'subject', type: 'string', example: 'example'),

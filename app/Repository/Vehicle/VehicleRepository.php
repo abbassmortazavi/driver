@@ -13,12 +13,12 @@ class VehicleRepository extends BaseRepository implements VehicleRepositoryInter
     }
 
     /**
-     * @param int $driverId
-     * @param int $vehicleId
+     * @param  int  $driverId
+     * @param  int  $vehicleId
      * @return mixed
      */
     public function getDriverVehicle(int $driverId, int $vehicleId): mixed
     {
-       return $this->model->query()->where('driver_id', $driverId)->where('id', $vehicleId)->first();
+        return $this->model->query()->where('driver_id', $driverId)->where('id', $vehicleId)->first();
     }
 }

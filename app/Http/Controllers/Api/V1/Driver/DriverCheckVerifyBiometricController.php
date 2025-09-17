@@ -18,7 +18,7 @@ use Throwable;
 
 #[OA\Get(
     path: '/api/v1/drivers/check-verify-biometric/{trackId}',
-    operationId: 'DriverCheckVerifyBiometric',
+    operationId: 'driverCheckVerifyBiometric',
     summary: 'Driver Check Verify Biometric',
     security: [['bearerAuth' => []]],
     tags: ['Driver'],

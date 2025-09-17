@@ -117,7 +117,7 @@ class AccessTokenController extends ApiController
     }
 
     /**
-     * @param AccessTokenRequest $request
+     * @param  AccessTokenRequest  $request
      * @return PublicUser
      */
     private function registerNewUser(AccessTokenRequest $request): PublicUser
@@ -126,7 +126,7 @@ class AccessTokenController extends ApiController
     }
 
     /**
-     * @param AccessTokenRequest $request
+     * @param  AccessTokenRequest  $request
      * @return array
      */
     public function prepareRegisterData(AccessTokenRequest $request): array

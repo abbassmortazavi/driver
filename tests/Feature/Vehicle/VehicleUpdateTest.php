@@ -18,8 +18,11 @@ class VehicleUpdateTest extends TestCase
     use RefreshDatabase;
 
     private PublicUser $user;
+
     private Driver $driver;
+
     private Vehicle $vehicle;
+
     private VehicleType $vehicleType;
 
     protected function setUp(): void
@@ -51,7 +54,7 @@ class VehicleUpdateTest extends TestCase
             'year' => '12345',
             'fuel_type' => 'INVALID_TYPE',
             'insurance_expiry_date' => 'invalid-date',
-            'vehicle_type_id' => 'non-existent-id'
+            'vehicle_type_id' => 'non-existent-id',
         ]);
 
         $response->assertUnprocessable()
@@ -66,7 +69,7 @@ class VehicleUpdateTest extends TestCase
                 'year',
                 'fuel_type',
                 'insurance_expiry_date',
-                'vehicle_type_id'
+                'vehicle_type_id',
             ]);
     }
 
@@ -91,8 +94,8 @@ class VehicleUpdateTest extends TestCase
 
     public function test_vehicle_not_found_returns_404()
     {
-        $response = $this->putJson("/api/v1/vehicles/non-existent", [
-            'name' => 'Updated Name'
+        $response = $this->putJson('/api/v1/vehicles/non-existent', [
+            'name' => 'Updated Name',
         ]);
 
         $response->assertNotFound();
@@ -103,7 +106,7 @@ class VehicleUpdateTest extends TestCase
         $this->app['auth']->forgetGuards();
 
         $response = $this->putJson("/api/v1/vehicles/{$this->vehicle->getHashedId()}", [
-            'name' => 'Updated Name'
+            'name' => 'Updated Name',
         ]);
 
         $response->assertUnauthorized();

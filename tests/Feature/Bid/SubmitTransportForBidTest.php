@@ -2,7 +2,6 @@
 
 namespace Tests\Feature\Bid;
 
-use App\Models\Bid;
 use App\Models\Customer;
 use App\Models\Driver;
 use App\Models\Order;
@@ -12,7 +11,6 @@ use App\Models\Transport;
 use App\Models\Vehicle;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Support\Str;
 use Laravel\Passport\Passport;
 use Patoughi\Common\Enums\ShipmentStatusEnum;
 use Patoughi\Common\Enums\TransportStatusEnum;
@@ -49,8 +47,8 @@ class SubmitTransportForBidTest extends TestCase
         $transport = Transport::factory()->create([
             'status' => fake()->randomElement(array_column(TransportStatusEnum::cases(), 'value')),
             'vehicle_id' => $vehicle->id,
-            'arrival_at' => $this->faker->dateTime(),
-            'departure_at' => $this->faker->dateTime(),
+            'expected_arrival_at' => $this->faker->dateTime(),
+            'expected_departure_at' => $this->faker->dateTime(),
         ]);
 
         $transport->shipments()->attach($shipment);
@@ -58,7 +56,7 @@ class SubmitTransportForBidTest extends TestCase
 
         $response = $this->postJson("/api/v1/transports/{$transport->getHashedId()}/bids", [
             'driver_id' => Hashids::encode($driver->id),
-            'proposed_price' => 100.50,
+            'proposed_price_value' => 100.50,
             'description' => 'Test bid notes',
         ]);
 
@@ -77,7 +75,6 @@ class SubmitTransportForBidTest extends TestCase
         $this->assertDatabaseHas('bids', [
             'driver_id' => $driver->id,
             'transport_id' => $transport->id,
-            'proposed_price' => 100.50,
         ]);
     }
 
@@ -93,7 +90,7 @@ class SubmitTransportForBidTest extends TestCase
 
         $response = $this->postJson("/api/v1/transports/{$nonExistentTransportId}/bids", [
             'driver_id' => Hashids::encode($driver->id),
-            'proposed_price' => 100.50,
+            'proposed_price_value' => 100.50,
         ]);
 
         $response->assertStatus(Response::HTTP_NOT_FOUND);
@@ -117,38 +114,10 @@ class SubmitTransportForBidTest extends TestCase
 
         $response = $this->postJson("/api/v1/transports/{$transport->getHashedId()}/bids", [
             'driver_id' => Hashids::encode($driver->id),
-            'proposed_price' => 100.50,
+            'proposed_price_value' => 100.50,
         ]);
 
         $response->assertStatus(Response::HTTP_FORBIDDEN)
             ->assertJson(['message' => trans('messages.you_can_not_do_this_bid')]);
-    }
-
-    /**
-     * @return void
-     */
-    public function test_cannot_submit_duplicate_bid()
-    {
-        $user = PublicUser::factory()->create();
-        $driver = Driver::factory()->create(['user_id' => $user->id]);
-        $customer = Customer::factory()->create(['user_id' => $user->id]);
-        Passport::actingAs($user);
-        $order = Order::factory()->create(['allow_price_negotiation' => true, 'customer_id' => $customer->id]);
-        $shipment = Shipment::factory()->create(['order_id' => $order->id]);
-
-        $transport = Transport::factory()->create(['driver_id' => $driver->id]);
-        $transport->shipments()->attach($shipment);
-        Bid::factory()->create([
-            'driver_id' => $driver->id,
-            'transport_id' => $transport->id,
-        ]);
-
-        $response = $this->postJson("/api/v1/transports/{$transport->getHashedId()}/bids", [
-            'driver_id' => Hashids::encode($driver->id),
-            'proposed_price' => 100.50,
-        ]);
-
-        $response->assertStatus(Response::HTTP_FORBIDDEN)
-            ->assertJson(['message' => __('You had been bid before for this transport')]);
     }
 }

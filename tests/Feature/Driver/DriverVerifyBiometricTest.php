@@ -23,12 +23,12 @@ final class DriverVerifyBiometricTest extends TestCase
 
     public function test_driver_biometric_verification_successfully_starts()
     {
-//        Storage::fake('public');
+        //        Storage::fake('public');
 
         $user = PublicUser::factory()->create();
         Passport::actingAs($user);
 
-//        $file = UploadedFile::fake()->create('video.mp4', 5000, 'video/mp4');
+        //        $file = UploadedFile::fake()->create('video.mp4', 5000, 'video/mp4');
         $file = fake()->randomLetter();
         $biometricMock = Mockery::mock(BiometricVerificationInterface::class);
         $biometricMock->shouldReceive('verify')
@@ -52,7 +52,7 @@ final class DriverVerifyBiometricTest extends TestCase
             'track_id' => 'mock-track-id-123',
         ]);
 
-//        Storage::disk('public')->assertMissing("videos/{$file->hashName()}"); // it should be deleted
+        //        Storage::disk('public')->assertMissing("videos/{$file->hashName()}"); // it should be deleted
     }
 
     public function test_biometric_verification_fails_when_pending_verification_exists()
@@ -60,7 +60,7 @@ final class DriverVerifyBiometricTest extends TestCase
         $user = PublicUser::factory()->create();
         Passport::actingAs($user);
 
-//        $file = UploadedFile::fake()->create('video.mp4', 5000, 'video/mp4');
+        //        $file = UploadedFile::fake()->create('video.mp4', 5000, 'video/mp4');
         $file = fake()->randomLetter();
 
         $kycLog = KycLog::factory()->create();
@@ -77,8 +77,8 @@ final class DriverVerifyBiometricTest extends TestCase
         ]);
 
         $response->assertUnprocessable();
-//        $response->assertJson([
-//            'message' => trans('messages.you_have_a_pending_biometric_verification_please_wait'),
-//        ]);
+        //        $response->assertJson([
+        //            'message' => trans('messages.you_have_a_pending_biometric_verification_please_wait'),
+        //        ]);
     }
 }

@@ -9,7 +9,7 @@ use Patoughi\Common\Orm\Repositories\BaseRepository;
 class VersionRepository extends BaseRepository implements VersionRepositoryInterface
 {
     /**
-     * @param Version $model
+     * @param  Version  $model
      */
     public function __construct(Version $model)
     {
@@ -17,8 +17,8 @@ class VersionRepository extends BaseRepository implements VersionRepositoryInter
     }
 
     /**
-     * @param string $platform
-     * @param string $type
+     * @param  string  $platform
+     * @param  string  $type
      * @return null|object
      */
     public function getLatestVersion(string $platform, string $type): ?object

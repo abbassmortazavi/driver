@@ -5,14 +5,12 @@ namespace App\Http\Resources\Api\V1\Driver;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use OpenApi\Attributes as OA;
-use Patoughi\Common\Enums\DriverStatusEnum;
 use Patoughi\Common\Enums\GenderEnum;
 
 #[OA\Schema(
     required: [
         'id',
         'mdm_organization_id',
-        'status',
         'first_name',
         'last_name',
         'national_code',
@@ -24,16 +22,10 @@ use Patoughi\Common\Enums\GenderEnum;
         'hired_at',
         'emergency_contact_name',
         'emergency_contact_phone',
-        'identity_verified_at',
-        'biometric_verified_at',
-        'activated_at',
-        'deactivated_at',
     ],
     properties: [
         new OA\Property(property: 'id', type: 'string'),
         new OA\Property(property: 'mdm_organization_id', type: 'string'),
-        new OA\Property(property: 'vehicle_type_id', type: 'integer'),
-        new OA\Property(property: 'status', type: 'string', enum: DriverStatusEnum::class),
         new OA\Property(property: 'first_name', type: 'string'),
         new OA\Property(property: 'last_name', type: 'string'),
         new OA\Property(property: 'national_code', type: 'string'),
@@ -50,9 +42,8 @@ use Patoughi\Common\Enums\GenderEnum;
 class DriverResource extends JsonResource
 {
     /**
-     * Transform the resource into an array.
-     *
-     * @return array<string, mixed>
+     * @param  Request  $request
+     * @return array
      */
     public function toArray(Request $request): array
     {

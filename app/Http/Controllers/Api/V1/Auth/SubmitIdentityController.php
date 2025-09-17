@@ -22,7 +22,7 @@ use Throwable;
 
 #[OA\Post(
     path: '/api/v1/auth/submit-identity',
-    operationId: 'submit identity',
+    operationId: 'submitIdentity',
     summary: 'submit identity',
     security: [['bearerAuth' => []]],
     tags: ['Auth'],

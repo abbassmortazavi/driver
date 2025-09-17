@@ -16,7 +16,7 @@ use Throwable;
 
 #[OA\Put(
     path: '/api/v1/auth/submit-information',
-    operationId: 'submit information',
+    operationId: 'submitInformation',
     summary: 'Driver Submit Information',
     security: [['bearerAuth' => []]],
     tags: ['Auth'],

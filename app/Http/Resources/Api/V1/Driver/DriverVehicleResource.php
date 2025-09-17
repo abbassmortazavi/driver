@@ -28,7 +28,7 @@ use Patoughi\Common\Enums\VehicleStatusEnum;
     properties: [
         new OA\Property(property: 'id', type: 'string'),
         new OA\Property(property: 'name', type: 'string'),
-        new OA\Property(property: 'vehicle_type', type: 'object'),
+        new OA\Property(property: 'vehicle_type', ref: VehicleTypeResource::class),
         new OA\Property(property: 'status', type: 'string', enum: VehicleStatusEnum::class),
         new OA\Property(property: 'fuel_type', type: 'string', enum: VehicleFuelTypeEnum::class),
         new OA\Property(property: 'plate_number', type: 'string'),

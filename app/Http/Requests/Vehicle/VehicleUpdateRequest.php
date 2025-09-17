@@ -3,9 +3,9 @@
 namespace App\Http\Requests\Vehicle;
 
 use App\Http\Requests\Traits\HashidDecodable;
+use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use OpenApi\Attributes as OA;
-use Illuminate\Foundation\Http\FormRequest;
 use Patoughi\Common\Enums\VehicleFuelTypeEnum;
 
 #[OA\Schema(

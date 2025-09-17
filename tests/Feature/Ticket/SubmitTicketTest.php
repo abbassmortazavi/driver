@@ -42,7 +42,7 @@ class SubmitTicketTest extends TestCase
                     'status',
                     'created_by',
                     'messages',
-                ]
+                ],
             ]);
     }
 }

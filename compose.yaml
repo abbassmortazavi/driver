@@ -42,23 +42,6 @@ services:
       test: ["CMD", "mysqladmin", "ping", "-p${DB_PASSWORD}"]
       retries: 3
       timeout: 5s
-
-  # phpMyAdmin Container
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    container_name: phpmyadmin
-    restart: unless-stopped
-    environment:
-      PMA_HOST: mysql
-      MYSQL_ROOT_PASSWORD: root  # Must match the root password above
-      UPLOAD_LIMIT: 20000M
-    ports:
-      - "8081:80"
-    depends_on:
-      - mysql
-    networks:
-      - patoughi
-
   redis:
     image: 'redis:alpine'
     restart: unless-stopped
@@ -75,6 +58,22 @@ services:
       timeout: 5s
     ports:
       - '${REDIS_PORT:-6379}:6379'
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    restart: unless-stopped
+    environment:
+      PMA_HOST: mysql
+      MYSQL_ROOT_PASSWORD: root  # Must match the root password above
+      UPLOAD_LIMIT: 20000M
+    ports:
+      - "8081:80"
+    depends_on:
+      - mysql
+    networks:
+      - patoughi
+
   minio:
     image: 'minio/minio:latest'
     restart: unless-stopped
@@ -107,4 +106,3 @@ volumes:
 secrets:
   composer_auth:
     file: ./auth.json
-

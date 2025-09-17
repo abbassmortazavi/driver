@@ -10,7 +10,7 @@ use Patoughi\Common\Enums\TransportAssignmentStatusEnum;
 use Patoughi\Common\Enums\TransportStatusEnum;
 
 #[OA\Schema(
-    required: ['page', 'per_page', 'status'],
+    required: [],
     properties: [
         new OA\Property(property: 'page', type: 'string'),
         new OA\Property(property: 'per_page', type: 'string'),

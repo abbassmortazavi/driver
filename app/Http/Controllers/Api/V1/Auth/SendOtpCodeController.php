@@ -6,7 +6,9 @@ use App\Http\Controllers\Api\V1\ApiController;
 use App\Http\Requests\Auth\SendOtpRequest;
 use App\Http\Resources\Api\V1\Auth\OtpCodeResource;
 use App\Http\Responses\Api\V1\ApiResponse;
+use App\Notifications\SendOtpNotification;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Validation\ValidationException;
 use OpenApi\Attributes as OA;
 use Patoughi\Common\Enums\OtpTypeEnum;
@@ -22,7 +24,7 @@ use Symfony\Component\HttpFoundation\Response;
     tags: ['Auth'],
 )]
 #[OA\RequestBody(
-    description: 'Shipment Store data',
+    description: 'Send Otp',
     required: true,
     content: new OA\JsonContent(
         ref: SendOtpRequest::class
@@ -70,6 +72,8 @@ class SendOtpCodeController extends ApiController
                 type: OtpTypeEnum::LOGIN,
                 via: OtpViaEnum::ANY,
             );
+            Notification::route('sms', $request->string('phone_number'))
+                ->notify(new SendOtpNotification($otpDto->plainCode, mobile: $request->string('phone_number')));
         } catch (OtpAlreadySentException) {
             throw ValidationException::withMessages([
                 'phone_number' => [

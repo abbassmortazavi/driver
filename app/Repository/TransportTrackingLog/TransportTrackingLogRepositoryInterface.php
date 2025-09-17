@@ -2,7 +2,4 @@
 
 namespace App\Repository\TransportTrackingLog;
 
-interface TransportTrackingLogRepositoryInterface
-{
-
-}
+interface TransportTrackingLogRepositoryInterface {}

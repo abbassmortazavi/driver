@@ -23,7 +23,7 @@ class OtpCodeRepository extends BaseRepository implements OtpCodeRepositoryInter
     }
 
     /**
-     * @param string $phoneNumber
+     * @param  string  $phoneNumber
      * @return mixed
      */
     public function findOtp(string $phoneNumber): mixed
@@ -32,7 +32,7 @@ class OtpCodeRepository extends BaseRepository implements OtpCodeRepositoryInter
     }
 
     /**
-     * @param string $phone_number
+     * @param  string  $phone_number
      * @return mixed
      */
     public function lastOtpCode(string $phone_number): mixed

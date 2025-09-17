@@ -24,10 +24,9 @@ class HooshmandService implements VehicleVerificationInterface
     }
 
     /**
-     * @param int $userId
-     * @param string $nationalCode
-     * @param string $plateNumber
-     *
+     * @param  int  $userId
+     * @param  string  $nationalCode
+     * @param  string  $plateNumber
      * @return bool
      *
      * @throws HooshmandException

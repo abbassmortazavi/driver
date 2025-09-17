@@ -6,9 +6,9 @@ use Illuminate\Foundation\Http\FormRequest;
 use OpenApi\Attributes as OA;
 
 #[OA\Schema(
-    required: ['proposed_price', 'description'],
+    required: ['proposed_price'],
     properties: [
-        new OA\Property(property: 'proposed_price', type: 'string', nullable: false),
+        new OA\Property(property: 'proposed_price_value', type: 'string', nullable: false),
         new OA\Property(property: 'description', type: 'string', nullable: true),
     ]
 )]
@@ -28,7 +28,7 @@ class CreateBidRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'proposed_price' => 'required|numeric',
+            'proposed_price_value' => 'required|numeric',
             'description' => 'nullable|string',
         ];
     }

@@ -26,5 +26,5 @@ return [
     'transport_has_not_validate_status' => 'وسیله نقلیه مورد نظر وضعیت نامناسب قرار دارد.',
     'this_bid_does_not_belong_to_you' => 'این بید به شما تعلق ندارد!',
     'only_pending_bids_can_be_cancelled' => 'فقط بیدهایی که در وضعیت پندینگ هستند میتوانند کنسل شوند',
-    'you_do_not_own_this_ticket' => 'شما صاحب این تیکت نیستید!'
+    'you_do_not_own_this_ticket' => 'شما صاحب این تیکت نیستید!',
 ];

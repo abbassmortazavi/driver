@@ -6,7 +6,6 @@ use App\Http\Controllers\Api\V1\ApiController;
 use App\Http\Requests\Vehicle\VehicleListRequest;
 use App\Http\Resources\Api\V1\Vehicle\VehicleResource;
 use App\Http\Responses\Api\V1\ApiResponse;
-use App\Models\Vehicle;
 use App\Repository\Driver\DriverRepositoryInterface;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Gate;
@@ -15,7 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 #[OA\Get(
     path: '/api/v1/vehicles',
-    operationId: 'vehicle lists',
+    operationId: 'vehicleLists',
     summary: 'vehicle lists',
     security: [['bearerAuth' => []]],
     tags: ['Vehicle'],

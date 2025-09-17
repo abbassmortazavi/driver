@@ -11,7 +11,7 @@ use Patoughi\Common\Enums\VehicleStatusEnum;
 #[OA\Schema(
     required: [],
     properties: [
-        new OA\Property(property: 'status', type: 'string'),
+        new OA\Property(property: 'status', type: 'string', enum: VehicleStatusEnum::class),
     ]
 )]
 class VehicleStatusUpdateRequest extends FormRequest

@@ -11,6 +11,7 @@ use App\Models\Vehicle;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Laravel\Passport\Passport;
 use Patoughi\Common\Enums\DriverStatusEnum;
+use Patoughi\Common\Enums\TransportAssignmentStatusEnum;
 use Patoughi\Common\Enums\TransportStatusEnum;
 use Patoughi\Common\Enums\VehicleStatusEnum;
 use Tests\TestCase;
@@ -36,6 +37,7 @@ class TransportCurrentTest extends TestCase
             ->create([
                 'driver_id' => $driver->id,
                 'status' => TransportStatusEnum::IN_TRANSIT->value,
+                'assignment_status' => TransportAssignmentStatusEnum::ASSIGNED->value,
             ]);
 
         Vehicle::factory()->create([
@@ -59,7 +61,7 @@ class TransportCurrentTest extends TestCase
 
         // Act
         Passport::actingAs($user);
-        $response = $this->getJson('/api/v1/transports/current');
+        $response = $this->getJson('/api/v1/transports/current-active');
 
         $response->assertOk()
             ->assertJsonStructure([
@@ -99,7 +101,7 @@ class TransportCurrentTest extends TestCase
                 'order_id' => $order->id,
             ]);
         Passport::actingAs($user);
-        $response = $this->getJson('/api/v1/transports/current');
+        $response = $this->getJson('/api/v1/transports/current-active');
 
         $response->assertJsonStructure([
             'data' => [
@@ -122,7 +124,7 @@ class TransportCurrentTest extends TestCase
         $user = PublicUser::factory()->create();
 
         Passport::actingAs($user);
-        $response = $this->getJson('/api/v1/transports/current');
+        $response = $this->getJson('/api/v1/transports/current-active');
 
         $response->assertForbidden();
     }
@@ -132,7 +134,7 @@ class TransportCurrentTest extends TestCase
      */
     public function test_it_requires_authentication()
     {
-        $response = $this->getJson('/api/v1/transports/current');
+        $response = $this->getJson('/api/v1/transports/current-active');
 
         $response->assertUnauthorized();
     }

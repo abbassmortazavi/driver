@@ -31,7 +31,7 @@ use Patoughi\Common\Enums\OrderStatusEnum;
         new OA\Property(property: 'name', type: 'string'),
         new OA\Property(property: 'dispatch_unit_type', ref: DispatchUnitTypeResource::class, nullable: true),
         new OA\Property(property: 'cargo_type', ref: CargoTypeResource::class, nullable: true),
-        new OA\Property(property: 'expected_pickup_at',  format: 'date-time'),
+        new OA\Property(property: 'expected_pickup_at', format: 'date-time'),
         new OA\Property(property: 'expected_drop_off_at', type: 'date-time'),
         new OA\Property(property: 'total_weight', type: 'double'),
         new OA\Property(property: 'total_volume', type: 'double'),
@@ -41,8 +41,7 @@ use Patoughi\Common\Enums\OrderStatusEnum;
 class ShipmentResource extends JsonResource
 {
     /**
-     * @param Request $request
-     *
+     * @param  Request  $request
      * @return array
      */
     public function toArray(Request $request): array

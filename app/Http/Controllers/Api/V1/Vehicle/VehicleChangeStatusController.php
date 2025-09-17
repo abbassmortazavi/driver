@@ -77,15 +77,13 @@ use Symfony\Component\HttpFoundation\Response;
 class VehicleChangeStatusController extends ApiController
 {
     /**
-     * @param VehicleRepositoryInterface $vehicleRepository
+     * @param  VehicleRepositoryInterface  $vehicleRepository
      */
-    public function __construct(protected VehicleRepositoryInterface $vehicleRepository)
-    {
-    }
+    public function __construct(protected VehicleRepositoryInterface $vehicleRepository) {}
 
     /**
-     * @param VehicleStatusUpdateRequest $request
-     * @param Vehicle $vehicle
+     * @param  VehicleStatusUpdateRequest  $request
+     * @param  Vehicle  $vehicle
      * @return JsonResponse
      */
     public function __invoke(VehicleStatusUpdateRequest $request, Vehicle $vehicle): JsonResponse
@@ -94,6 +92,7 @@ class VehicleChangeStatusController extends ApiController
         $this->vehicleRepository->update($vehicle->id, [
             'status' => $request->get('status'),
         ]);
+
         return ApiResponse::ok([
             'message' => __('Driver Vehicle Updated Successfully'),
         ]);

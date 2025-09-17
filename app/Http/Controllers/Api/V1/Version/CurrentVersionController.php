@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Api\V1\Version;
 
 use App\Http\Controllers\Api\V1\ApiController;
 use App\Http\Requests\Version\VersionCheckRequest;
-use App\Http\Requests\Version\VersionRequest;
 use App\Http\Resources\Api\V1\Version\VersionResource;
 use App\Http\Responses\Api\V1\ApiResponse;
 use App\Repository\Version\VersionRepositoryInterface;
@@ -14,7 +13,6 @@ use Illuminate\Validation\ValidationException;
 use OpenApi\Attributes as OA;
 use Psr\SimpleCache\InvalidArgumentException;
 use Symfony\Component\HttpFoundation\Response;
-use Throwable;
 
 #[OA\Get(
     path: '/api/v1/versions',
@@ -69,14 +67,12 @@ use Throwable;
 class CurrentVersionController extends ApiController
 {
     /**
-     * @param VersionRepositoryInterface $repository
+     * @param  VersionRepositoryInterface  $repository
      */
-    public function __construct(protected VersionRepositoryInterface $repository)
-    {
-    }
+    public function __construct(protected VersionRepositoryInterface $repository) {}
 
     /**
-     * @param VersionCheckRequest $request
+     * @param  VersionCheckRequest  $request
      * @return JsonResponse
      *
      * @throws InvalidArgumentException

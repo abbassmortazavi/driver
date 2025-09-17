@@ -18,7 +18,7 @@ use Throwable;
 
 #[OA\Post(
     path: '/api/v1/drivers/verify-biometric',
-    operationId: 'Driver Verify Biometric',
+    operationId: 'driverVerifyBiometric',
     summary: 'Driver Verify Biometric',
     security: [['bearerAuth' => []]],
     tags: ['Driver'],

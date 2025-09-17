@@ -4,7 +4,6 @@ namespace App\Policies;
 
 use App\Models\PublicUser;
 use App\Models\Vehicle;
-use Patoughi\Common\Enums\VehicleStatusEnum;
 
 class VehiclePolicy
 {
@@ -29,8 +28,8 @@ class VehiclePolicy
     }
 
     /**
-     * @param PublicUser $publicUser
-     * @param Vehicle $vehicle
+     * @param  PublicUser  $publicUser
+     * @param  Vehicle  $vehicle
      * @return bool
      */
     public function update(PublicUser $publicUser, Vehicle $vehicle): bool

@@ -66,15 +66,13 @@ use Symfony\Component\HttpFoundation\Response;
 class TicketReplyController extends ApiController
 {
     /**
-     * @param TicketMessageRepositoryInterface $ticketMessageRepository
+     * @param  TicketMessageRepositoryInterface  $ticketMessageRepository
      */
-    public function __construct(private TicketMessageRepositoryInterface $ticketMessageRepository)
-    {
-    }
+    public function __construct(private TicketMessageRepositoryInterface $ticketMessageRepository) {}
 
     /**
-     * @param TicketReplyRequest $request
-     * @param Ticket $ticket
+     * @param  TicketReplyRequest  $request
+     * @param  Ticket  $ticket
      * @return JsonResponse
      */
     public function __invoke(TicketReplyRequest $request, Ticket $ticket): JsonResponse
@@ -86,8 +84,8 @@ class TicketReplyController extends ApiController
     }
 
     /**
-     * @param array $payload
-     * @param Ticket $ticket
+     * @param  array  $payload
+     * @param  Ticket  $ticket
      * @return array
      */
     private function prepareCreateData(array $payload, Ticket $ticket): array

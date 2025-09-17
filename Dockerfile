@@ -1,7 +1,7 @@
 #syntax=docker/dockerfile:1.15.0
 
 # Versions
-FROM dunglas/frankenphp:1.5-php8.4-alpine AS upstream
+FROM dunglas/frankenphp:1.9-php8.4-alpine AS upstream
 
 # The different stages of this Dockerfile are meant to be built into separate images
 # https://docs.docker.com/develop/develop-images/multistage-build/#stop-at-a-specific-build-stage
@@ -36,7 +36,6 @@ RUN apk --no-cache add \
     g++ \
     make \
     autoconf \
-    nano  \
   && update-ca-certificates
 
 # Install PHP extensions in a single layer
@@ -71,7 +70,7 @@ COPY --link --chmod=+x .docker/php/docker-php-entrypoint /usr/local/bin/docker-p
 
 ENTRYPOINT ["docker-php-entrypoint"]
 
-CMD ["php", "artisan", "octane:start"]
+CMD ["php", "artisan", "octane:start", "--host=0.0.0.0", "--port=8000"]
 
 # ---------------------------------------------------------------------
 # Development stage

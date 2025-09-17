@@ -33,9 +33,9 @@ class TicketReplyTest extends TestCase
             'priority' => 'low',
         ]);
         $payload = [
-            'message' => 'This is a reply to the ticket.'
+            'message' => 'This is a reply to the ticket.',
         ];
-        //dd($user->driver);
+        // dd($user->driver);
         $response = $this->postJson("/api/v1/tickets/{$ticket->getHashedId()}/reply", $payload);
 
         $response->assertStatus(200)
@@ -45,7 +45,7 @@ class TicketReplyTest extends TestCase
                     'message',
                     'sender_id',
                     'created_at',
-                ]
+                ],
             ]);
     }
 
@@ -73,7 +73,7 @@ class TicketReplyTest extends TestCase
         ]);
 
         $payload = [
-            'message' => 'This is a reply to the ticket.'
+            'message' => 'This is a reply to the ticket.',
         ];
 
         $response = $this->postJson("/api/v1/tickets/{$ticket->getHashedId()}/reply", $payload);

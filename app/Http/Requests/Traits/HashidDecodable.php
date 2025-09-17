@@ -13,6 +13,7 @@ trait HashidDecodable
         if ($value) {
             $decoded = Hashids::decode($value);
         }
+
         return $decoded[0] ?? 0;
     }
 

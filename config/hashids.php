@@ -31,7 +31,7 @@ return [
         'main' => [
             'salt' => '9d6d07100ec6634621d257a720a62b31566ebef69e1546a5b6eeb97a11ac3947',
             'length' => 12,
-            'alphabet' => 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'
+            'alphabet' => 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890',
         ],
 
         'alternative' => [

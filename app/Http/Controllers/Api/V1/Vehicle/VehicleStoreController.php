@@ -8,7 +8,6 @@ use App\Http\Resources\Api\V1\Driver\DriverVehicleResource;
 use App\Http\Responses\Api\V1\ApiResponse;
 use App\Models\Driver;
 use App\Models\PublicUser;
-use App\Models\VehicleType;
 use App\Repository\DriverVehicleAssignmentHistory\DriverVehicleAssignmentHistoryRepositoryInterface;
 use App\Repository\Vehicle\VehicleRepositoryInterface;
 use App\Services\ThirdParties\Contracts\VehicleVerificationInterface;
@@ -23,7 +22,7 @@ use Throwable;
 
 #[OA\Post(
     path: '/api/v1/vehicles',
-    operationId: 'create vehicle',
+    operationId: 'createVehicle',
     summary: 'Create Vehicle',
     security: [['bearerAuth' => []]],
     tags: ['Vehicle'],
@@ -89,13 +88,14 @@ class VehicleStoreController extends ApiController
             $this->verifyVehicle($user->id, $driver->national_code, $payload['plate_number']);
             $vehicle = $this->vehicleRepository->create($payload);
             $this->createDriverVehicleAssignmentHistory($driver->getKey(), $vehicle->getKey());
+
             return ApiResponse::ok([DriverVehicleResource::make($vehicle)]);
         });
     }
 
     /**
-     * @param Driver $driver
-     * @param CreateVehicleRequest $request
+     * @param  Driver  $driver
+     * @param  CreateVehicleRequest  $request
      * @return array
      */
     public function prepareData(Driver $driver, CreateVehicleRequest $request): array
@@ -118,10 +118,11 @@ class VehicleStoreController extends ApiController
     }
 
     /**
-     * @param int $userId
-     * @param string $nationalCode
-     * @param string $plateNumber
+     * @param  int  $userId
+     * @param  string  $nationalCode
+     * @param  string  $plateNumber
      * @return void
+     *
      * @throws ValidationException
      */
     private function verifyVehicle(int $userId, string $nationalCode, string $plateNumber): void

@@ -7,7 +7,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 use OpenApi\Attributes as OA;
 
 #[OA\Schema(
-    required: ['lat', 'lng', 'driver', 'recorded_at'],
+    required: ['lat', 'lng', 'driver', 'recorded_at', 'transport'],
     properties: [
         new OA\Property(property: 'lat', type: 'string', example: '45.1254662'),
         new OA\Property(property: 'lng', type: 'string', example: '-122.456789'),

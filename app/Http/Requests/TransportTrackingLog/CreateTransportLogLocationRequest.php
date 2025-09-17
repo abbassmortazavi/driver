@@ -5,14 +5,37 @@ namespace App\Http\Requests\TransportTrackingLog;
 use Illuminate\Foundation\Http\FormRequest;
 use OpenApi\Attributes as OA;
 
-#[OA\Schema(
-    required: ['lat', 'lng', 'recorded_at'],
-    properties: [
-        new OA\Property(property: 'lat', type: 'string', nullable: false),
-        new OA\Property(property: 'lng', type: 'string', nullable: false),
-        new OA\Property(property: 'recorded_at', type: 'string', nullable: false),
-    ]
-)]
+#[
+    OA\Schema(
+        required: ['lat', 'lng', 'recorded_at'],
+        properties: [
+            new OA\Property(
+                property: 'lat',
+                description: 'Latitude between -90 and 90. Accepts up to 15 decimal places.',
+                type: 'string',
+                pattern: '^-?\d{1,3}(\.\d{1,15})?$',
+                example: '35.6892',
+                nullable: false
+            ),
+            new OA\Property(
+                property: 'lng',
+                description: 'Longitude between -180 and 180. Accepts up to 15 decimal places.',
+                type: 'string',
+                pattern: '^-?\d{1,3}(\.\d{1,15})?$',
+                example: '51.3890',
+                nullable: false
+            ),
+            new OA\Property(
+                property: 'recorded_at',
+                description: 'Timestamp in Y-m-d H:i:s format',
+                type: 'string',
+                format: 'date-time',
+                example: '2025-07-22 14:30:00',
+                nullable: false
+            ),
+        ]
+    )
+]
 class CreateTransportLogLocationRequest extends FormRequest
 {
     /**

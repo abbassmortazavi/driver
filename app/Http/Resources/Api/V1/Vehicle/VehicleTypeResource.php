@@ -21,8 +21,6 @@ use Patoughi\Common\Enums\VehicleTripTypeEnum;
         'rtmp_code',
         'rtmp_min_capacity',
         'rtmp_max_capacity',
-        'created_at',
-        'updated_at',
     ],
     properties: [
         new OA\Property(property: 'id', type: 'string'),
@@ -37,8 +35,6 @@ use Patoughi\Common\Enums\VehicleTripTypeEnum;
         new OA\Property(property: 'rtmp_code', type: 'integer'),
         new OA\Property(property: 'rtmp_min_capacity', type: 'integer'),
         new OA\Property(property: 'rtmp_max_capacity', type: 'integer'),
-        new OA\Property(property: 'created_at', type: 'string', format: 'date-time', nullable: true),
-        new OA\Property(property: 'updated_at', type: 'string', format: 'date-time', nullable: true),
     ],
 )]
 class VehicleTypeResource extends JsonResource

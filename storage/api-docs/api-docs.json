@@ -108,7 +108,7 @@
                     "Auth"
                 ],
                 "summary": "Get Refresh Token",
-                "operationId": "Get Refresh Token",
+                "operationId": "GetRefreshToken",
                 "requestBody": {
                     "description": "Get Refresh Token",
                     "required": true,
@@ -172,7 +172,7 @@
                 "summary": "Send OTP Code",
                 "operationId": "sendOtpCode",
                 "requestBody": {
-                    "description": "Shipment Store data",
+                    "description": "Send Otp",
                     "required": true,
                     "content": {
                         "application/json": {
@@ -227,7 +227,7 @@
                     "Auth"
                 ],
                 "summary": "submit identity",
-                "operationId": "submit identity",
+                "operationId": "submitIdentity",
                 "requestBody": {
                     "description": "Driver Submit Identity",
                     "required": true,
@@ -289,7 +289,7 @@
                     "Auth"
                 ],
                 "summary": "Driver Submit Information",
-                "operationId": "submit information",
+                "operationId": "submitInformation",
                 "requestBody": {
                     "description": "Driver Update data",
                     "required": true,
@@ -392,11 +392,27 @@
                     {
                         "name": "per_page",
                         "in": "query",
-                        "description": "Number of items per page",
+                        "description": "Number of items per page (default: 50)",
                         "required": false,
                         "schema": {
                             "type": "integer",
-                            "default": 10
+                            "default": 50,
+                            "minimum": 1
+                        }
+                    },
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "description": "Status",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "accepted",
+                                "rejected",
+                                "pending",
+                                "cancelled"
+                            ]
                         }
                     }
                 ],
@@ -425,11 +441,11 @@
                                                 },
                                                 "per_page": {
                                                     "type": "integer",
-                                                    "example": 10
+                                                    "example": 50
                                                 },
                                                 "total": {
                                                     "type": "integer",
-                                                    "example": 3
+                                                    "example": 100
                                                 }
                                             },
                                             "type": "object"
@@ -641,7 +657,7 @@
                     "Driver"
                 ],
                 "summary": "Driver Check Verify Biometric",
-                "operationId": "DriverCheckVerifyBiometric",
+                "operationId": "driverCheckVerifyBiometric",
                 "parameters": [
                     {
                         "name": "trackId",
@@ -708,7 +724,7 @@
                     "Driver"
                 ],
                 "summary": "Driver Verify Biometric",
-                "operationId": "Driver Verify Biometric",
+                "operationId": "driverVerifyBiometric",
                 "requestBody": {
                     "description": "Driver Verify Biometric data",
                     "required": true,
@@ -1149,7 +1165,30 @@
                     "Transport"
                 ],
                 "summary": "Get available transports",
-                "operationId": "GetAvailableTransports",
+                "description": "Returns a paginated list of transports available for bidding that the current driver hasn't already bid on.",
+                "operationId": "getAvailableTransports",
+                "parameters": [
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "description": "Number of items per page",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 10
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page number",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 1
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Successful response",
@@ -1166,6 +1205,23 @@
                                             "items": {
                                                 "$ref": "#/components/schemas/TransportAvailableResource"
                                             }
+                                        },
+                                        "meta": {
+                                            "properties": {
+                                                "current_page": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "per_page": {
+                                                    "type": "integer",
+                                                    "example": 10
+                                                },
+                                                "total": {
+                                                    "type": "integer",
+                                                    "example": 100
+                                                }
+                                            },
+                                            "type": "object"
                                         }
                                     },
                                     "type": "object"
@@ -1173,22 +1229,50 @@
                             }
                         }
                     },
-                    "422": {
-                        "description": "Validation error",
+                    "401": {
+                        "description": "Unauthorized",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/ApiResponseErrorValidation"
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 401
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
                     },
-                    "500": {
-                        "description": "Server error during registration",
+                    "403": {
+                        "description": "Forbidden - Driver not authorized to view transports",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/ApiResponseErrorServer"
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Forbidden"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 403
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -1265,7 +1349,7 @@
                     "Transport"
                 ],
                 "summary": "Get transport details",
-                "operationId": "GetTransportDetail",
+                "operationId": "getTransportDetail",
                 "parameters": [
                     {
                         "name": "transport",
@@ -1332,7 +1416,7 @@
                 ],
                 "summary": "List all transports assigned to driver",
                 "description": "Retrieves a paginated list of transports filtered by status (e.g., \"assigned\").",
-                "operationId": "list-transports",
+                "operationId": "listTransports",
                 "responses": {
                     "200": {
                         "description": "Successfully retrieved transports",
@@ -1611,7 +1695,7 @@
         "/api/v1/vehicles/{vehicle}": {
             "get": {
                 "tags": [
-                    "Vehicles"
+                    "Vehicle"
                 ],
                 "summary": "Vehicle detail",
                 "operationId": "vehicleDetail",
@@ -1811,7 +1895,7 @@
                     "Vehicle"
                 ],
                 "summary": "vehicle lists",
-                "operationId": "vehicle lists",
+                "operationId": "vehicleLists",
                 "parameters": [
                     {
                         "name": "status",
@@ -1871,7 +1955,7 @@
                     "Vehicle"
                 ],
                 "summary": "Create Vehicle",
-                "operationId": "create vehicle",
+                "operationId": "createVehicle",
                 "requestBody": {
                     "description": "Vehicle Store data",
                     "required": true,
@@ -2146,8 +2230,7 @@
             },
             "CreateBidRequest": {
                 "required": [
-                    "proposed_price",
-                    "description"
+                    "proposed_price"
                 ],
                 "properties": {
                     "proposed_price": {
@@ -2156,6 +2239,30 @@
                     },
                     "description": {
                         "type": "string",
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "ListBidRequest": {
+                "required": [
+                    "status",
+                    "per_page"
+                ],
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "enum": [
+                            "accepted",
+                            "rejected",
+                            "pending",
+                            "cancelled"
+                        ],
+                        "nullable": true
+                    },
+                    "per_page": {
+                        "type": "integer",
+                        "default": 50,
                         "nullable": true
                     }
                 },
@@ -2254,8 +2361,7 @@
                 "required": [
                     "category_id",
                     "subject",
-                    "description",
-                    "status"
+                    "description"
                 ],
                 "properties": {
                     "category_id": {
@@ -2293,11 +2399,7 @@
                 "type": "object"
             },
             "TransportToAssignedDriverListRequest": {
-                "required": [
-                    "page",
-                    "per_page",
-                    "status"
-                ],
+                "required": [],
                 "properties": {
                     "page": {
                         "type": "string"
@@ -2341,15 +2443,24 @@
                 ],
                 "properties": {
                     "lat": {
+                        "description": "Latitude between -90 and 90. Accepts up to 15 decimal places.",
                         "type": "string",
+                        "pattern": "^-?\\d{1,3}(\\.\\d{1,15})?$",
+                        "example": "35.6892",
                         "nullable": false
                     },
                     "lng": {
+                        "description": "Longitude between -180 and 180. Accepts up to 15 decimal places.",
                         "type": "string",
+                        "pattern": "^-?\\d{1,3}(\\.\\d{1,15})?$",
+                        "example": "51.3890",
                         "nullable": false
                     },
                     "recorded_at": {
+                        "description": "Timestamp in Y-m-d H:i:s format",
                         "type": "string",
+                        "format": "date-time",
+                        "example": "2025-07-22 14:30:00",
                         "nullable": false
                     }
                 },
@@ -2428,7 +2539,13 @@
                 "required": [],
                 "properties": {
                     "status": {
-                        "type": "string"
+                        "type": "string",
+                        "enum": [
+                            "active",
+                            "maintenance",
+                            "retired",
+                            "inactive"
+                        ]
                     }
                 },
                 "type": "object"
@@ -2613,9 +2730,17 @@
                         "example": "PENDING"
                     },
                     "proposed_price": {
-                        "type": "number",
-                        "format": "float",
-                        "example": 1000000
+                        "properties": {
+                            "amount": {
+                                "type": "string",
+                                "example": "65000.00"
+                            },
+                            "currency": {
+                                "type": "string",
+                                "example": "IRR"
+                            }
+                        },
+                        "type": "object"
                     },
                     "description": {
                         "type": "string",
@@ -2629,10 +2754,12 @@
             },
             "BidResource": {
                 "required": [
+                    "id",
                     "driver_id",
                     "transport_id",
                     "proposed_price",
-                    "description"
+                    "description",
+                    "status"
                 ],
                 "properties": {
                     "driver_id": {
@@ -2646,6 +2773,15 @@
                     },
                     "description": {
                         "type": "string"
+                    },
+                    "status": {
+                        "type": "string",
+                        "enum": [
+                            "accepted",
+                            "rejected",
+                            "pending",
+                            "cancelled"
+                        ]
                     }
                 },
                 "type": "object"
@@ -2692,7 +2828,6 @@
                 "required": [
                     "id",
                     "mdm_organization_id",
-                    "status",
                     "first_name",
                     "last_name",
                     "national_code",
@@ -2703,11 +2838,7 @@
                     "licence_expired_at",
                     "hired_at",
                     "emergency_contact_name",
-                    "emergency_contact_phone",
-                    "identity_verified_at",
-                    "biometric_verified_at",
-                    "activated_at",
-                    "deactivated_at"
+                    "emergency_contact_phone"
                 ],
                 "properties": {
                     "id": {
@@ -2715,16 +2846,6 @@
                     },
                     "mdm_organization_id": {
                         "type": "string"
-                    },
-                    "vehicle_type_id": {
-                        "type": "integer"
-                    },
-                    "status": {
-                        "type": "string",
-                        "enum": [
-                            "active",
-                            "inactive"
-                        ]
                     },
                     "first_name": {
                         "type": "string"
@@ -2798,7 +2919,7 @@
                         "type": "string"
                     },
                     "vehicle_type": {
-                        "type": "object"
+                        "$ref": "#/components/schemas/VehicleTypeResource"
                     },
                     "status": {
                         "type": "string",
@@ -3379,7 +3500,8 @@
                     "lat",
                     "lng",
                     "driver",
-                    "recorded_at"
+                    "recorded_at",
+                    "transport"
                 ],
                 "properties": {
                     "lat": {
@@ -3410,10 +3532,11 @@
                     "id",
                     "status",
                     "name",
-                    "email",
+                    "phone_number",
                     "created_at",
                     "updated_at",
                     "blocked_at",
+                    "driver",
                     "driver_fulfillment_status"
                 ],
                 "properties": {
@@ -3491,16 +3614,16 @@
                 "required": [
                     "id",
                     "name",
-                    "vehicle_type_id",
+                    "vehicle_type",
+                    "plate_number",
+                    "color",
                     "status",
                     "fuel_type",
-                    "plate_number",
                     "vin_number",
                     "insurance_policy_number",
                     "insurance_expiry_date",
                     "current_location_lat",
                     "current_location_lng",
-                    "color",
                     "model_name",
                     "brand_name",
                     "year",
@@ -3515,7 +3638,13 @@
                     "name": {
                         "type": "string"
                     },
-                    "vehicle_type_id": {
+                    "vehicle_type": {
+                        "$ref": "#/components/schemas/VehicleTypeResource"
+                    },
+                    "plate_number": {
+                        "type": "string"
+                    },
+                    "color": {
                         "type": "string"
                     },
                     "status": {
@@ -3538,9 +3667,6 @@
                             "Other"
                         ]
                     },
-                    "plate_number": {
-                        "type": "string"
-                    },
                     "vin_number": {
                         "type": "string"
                     },
@@ -3557,9 +3683,6 @@
                     },
                     "current_location_lng": {
                         "type": "decimal"
-                    },
-                    "color": {
-                        "type": "string"
                     },
                     "model_name": {
                         "type": "string"
@@ -3600,9 +3723,7 @@
                     "trip_type",
                     "rtmp_code",
                     "rtmp_min_capacity",
-                    "rtmp_max_capacity",
-                    "created_at",
-                    "updated_at"
+                    "rtmp_max_capacity"
                 ],
                 "properties": {
                     "id": {
@@ -3647,16 +3768,6 @@
                     },
                     "rtmp_max_capacity": {
                         "type": "integer"
-                    },
-                    "created_at": {
-                        "type": "string",
-                        "format": "date-time",
-                        "nullable": true
-                    },
-                    "updated_at": {
-                        "type": "string",
-                        "format": "date-time",
-                        "nullable": true
                     }
                 },
                 "type": "object"
@@ -3667,7 +3778,8 @@
                     "version",
                     "type",
                     "status",
-                    "build_number"
+                    "build_number",
+                    "force_update"
                 ],
                 "properties": {
                     "platform": {
@@ -3687,6 +3799,21 @@
                             "driver",
                             "customer"
                         ]
+                    },
+                    "status": {
+                        "type": "string",
+                        "enum": [
+                            "draft",
+                            "released",
+                            "deprecated",
+                            "inactive"
+                        ]
+                    },
+                    "build_number": {
+                        "type": "string"
+                    },
+                    "force_update": {
+                        "type": "string"
                     }
                 },
                 "type": "object"
@@ -3848,10 +3975,6 @@
         {
             "name": "Vehicle",
             "description": "Vehicle"
-        },
-        {
-            "name": "Vehicles",
-            "description": "Vehicles"
         },
         {
             "name": "Version",

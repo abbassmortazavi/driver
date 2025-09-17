@@ -7,7 +7,6 @@ use App\Http\Requests\Vehicle\VehicleUpdateRequest;
 use App\Http\Resources\Api\V1\Vehicle\VehicleResource;
 use App\Http\Responses\Api\V1\ApiResponse;
 use App\Models\Vehicle;
-use App\Models\VehicleType;
 use App\Repository\Vehicle\VehicleRepositoryInterface;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Gate;

@@ -18,7 +18,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 #[OA\Post(
     path: '/api/v1/auth/refresh-token',
-    operationId: 'Get Refresh Token',
+    operationId: 'GetRefreshToken',
     summary: 'Get Refresh Token',
     security: [['bearerAuth' => []]],
     tags: ['Auth'],
@@ -97,7 +97,7 @@ class RefreshTokenController extends ApiController
     }
 
     /**
-     * @param array $data
+     * @param  array  $data
      * @return AccessTokenDto
      */
     protected function getAccessToken(array $data): AccessTokenDto

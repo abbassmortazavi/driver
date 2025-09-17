@@ -30,7 +30,7 @@ class VersionCheckTest extends TestCase
      */
     public function test_it_returns_error_when_client_version_is_higher_than_latest()
     {
-        //refresh vehicles data
+        // refresh vehicles data
         DB::table('versions')->truncate();
         Version::factory()->create([
             'version' => '1.0.0',
@@ -57,7 +57,7 @@ class VersionCheckTest extends TestCase
 
     public function test_it_shows_force_update_when_update_is_required()
     {
-        //refresh vehicles data
+        // refresh vehicles data
         DB::table('versions')->delete();
         Version::factory()->create([
             'version' => '2.0.0',
@@ -71,5 +71,4 @@ class VersionCheckTest extends TestCase
         $response->assertOk()
             ->assertJsonPath('data.force_update', true);
     }
-
 }

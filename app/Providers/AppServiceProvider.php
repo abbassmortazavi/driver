@@ -2,8 +2,6 @@
 
 namespace App\Providers;
 
-use App\Models\Vehicle;
-use App\Policies\VehiclePolicy;
 use App\Repository\Bid\BidRepository;
 use App\Repository\Bid\BidRepositoryInterface;
 use App\Repository\DispatchUnitType\DispatchUnitTypeRepository;
@@ -42,7 +40,6 @@ use App\Services\ThirdParties\Contracts\PhoneNumberVerificationInterface;
 use App\Services\ThirdParties\Contracts\VehicleVerificationInterface;
 use App\Services\ThirdParties\HooshmandService;
 use App\Services\ThirdParties\ShahkarService;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Passport\Passport;

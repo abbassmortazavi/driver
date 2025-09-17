@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\Response;
     operationId: 'vehicleDetail',
     summary: 'Vehicle detail',
     security: [['bearerAuth' => []]],
-    tags: ['Vehicles'],
+    tags: ['Vehicle'],
     parameters: [
         new OA\Parameter(
             name: 'vehicle',
@@ -60,7 +60,7 @@ class VehicleDetailController extends ApiController
      * @param  Vehicle  $vehicle
      * @return JsonResponse
      */
-    public function __invoke(Vehicle $vehicle)
+    public function __invoke(Vehicle $vehicle): JsonResponse
     {
         Gate::authorize('view', $vehicle);
 

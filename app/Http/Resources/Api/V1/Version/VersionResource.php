@@ -16,11 +16,15 @@ use Patoughi\Common\Enums\VersionTypeEnum;
         'type',
         'status',
         'build_number',
+        'force_update',
     ],
     properties: [
         new OA\Property(property: 'platform', type: 'string', enum: VersionPlatformEnum::class),
         new OA\Property(property: 'version', type: 'string'),
         new OA\Property(property: 'type', type: 'string', enum: VersionTypeEnum::class),
+        new OA\Property(property: 'status', type: 'string', enum: VersionStatusEnum::class),
+        new OA\Property(property: 'build_number', type: 'string'),
+        new OA\Property(property: 'force_update', type: 'string'),
     ],
 )]
 class VersionResource extends JsonResource

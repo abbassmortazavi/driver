@@ -6,13 +6,12 @@ use App\Http\Controllers\Api\V1\ApiController;
 use App\Http\Requests\Ticket\TicketSubmitRequest;
 use App\Http\Resources\Api\V1\Ticket\TicketResource;
 use App\Http\Responses\Api\V1\ApiResponse;
-use App\Models\TicketMessage;
 use App\Repository\Ticket\TicketRepositoryInterface;
 use Illuminate\Http\JsonResponse;
+use OpenApi\Attributes as OA;
 use Patoughi\Common\Enums\TicketCreatedByEnum;
 use Patoughi\Common\Enums\TicketPriorityEnum;
 use Patoughi\Common\Enums\TicketStatusEnum;
-use OpenApi\Attributes as OA;
 use Symfony\Component\HttpFoundation\Response;
 
 #[OA\Post(
@@ -59,25 +58,24 @@ use Symfony\Component\HttpFoundation\Response;
 class TicketSubmitController extends ApiController
 {
     /**
-     * @param TicketRepositoryInterface $ticketRepository
+     * @param  TicketRepositoryInterface  $ticketRepository
      */
-    public function __construct(private TicketRepositoryInterface $ticketRepository)
-    {
-    }
+    public function __construct(private TicketRepositoryInterface $ticketRepository) {}
 
     /**
-     * @param TicketSubmitRequest $request
+     * @param  TicketSubmitRequest  $request
      * @return JsonResponse
      */
     public function __invoke(TicketSubmitRequest $request): JsonResponse
     {
         $ticket = $this->ticketRepository->create($this->prepareCreateData($request->validated()));
         $ticket->load('messages');
+
         return ApiResponse::ok(TicketResource::make($ticket));
     }
 
     /**
-     * @param array $payload
+     * @param  array  $payload
      * @return array
      */
     private function prepareCreateData(array $payload): array

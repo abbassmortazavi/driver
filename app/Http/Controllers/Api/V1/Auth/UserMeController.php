@@ -7,8 +7,8 @@ use App\Http\Resources\Api\V1\User\PublicUserResource;
 use App\Http\Responses\Api\V1\ApiResponse;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use OpenApi\Attributes as OA;
+use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
 #[OA\Get(
     path: '/api/v1/me',
@@ -18,7 +18,7 @@ use OpenApi\Attributes as OA;
     tags: ['Auth'],
 )]
 #[OA\Response(
-    response: Response::HTTP_OK,
+    response: ResponseAlias::HTTP_OK,
     description: 'Successful response',
     content: new OA\JsonContent(
         ref: PublicUserResource::class
@@ -26,6 +26,10 @@ use OpenApi\Attributes as OA;
 )]
 final class UserMeController extends ApiController
 {
+    /**
+     * @param  Request  $request
+     * @return JsonResponse
+     */
     public function __invoke(Request $request): JsonResponse
     {
         return ApiResponse::ok(

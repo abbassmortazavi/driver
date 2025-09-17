@@ -5,7 +5,6 @@ namespace App\Http\Resources\Api\V1\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use OpenApi\Attributes as OA;
-use Patoughi\Common\Enums\OtpTypeEnum;
 
 #[OA\Schema(
     required: [

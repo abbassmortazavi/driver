@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 #[OA\Get(
     path: '/api/v1/transports/{transport}',
-    operationId: 'GetTransportDetail',
+    operationId: 'getTransportDetail',
     summary: 'Get transport details',
     security: [['bearerAuth' => []]],
     tags: ['Transport'],
@@ -78,6 +78,7 @@ class TransportDetailController extends ApiController
             );
         }
         $transport->load(['order', 'shipments']);
+
         return ApiResponse::ok(TransportDetailResource::make($transport));
     }
 }

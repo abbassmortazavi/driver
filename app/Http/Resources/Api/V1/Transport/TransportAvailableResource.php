@@ -32,7 +32,7 @@ class TransportAvailableResource extends JsonResource
             'date' => $this?->order?->expected_delivery_date,
             'price' => $this?->order?->total_price_value,
             'negotiation_allowed' => $this?->order?->allow_price_negotiation,
-            'allowed_to_bid' => !$this->bids()->exists() ?? true,
+            'allowed_to_bid' => ! $this->bids()->exists() ?? true,
         ];
     }
 }

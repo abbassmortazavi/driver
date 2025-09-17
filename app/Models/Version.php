@@ -12,5 +12,4 @@ class Version extends VersionModel implements Auditable
     protected array $auditInclude = [
         'version',
     ];
-
 }

@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 #[OA\Get(
     path: '/api/v1/transports',
-    operationId: 'list-transports',
+    operationId: 'listTransports',
     description: 'Retrieves a paginated list of transports filtered by status (e.g., "assigned").',
     summary: 'List all transports assigned to driver',
     security: [['bearerAuth' => []]],

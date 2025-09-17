@@ -5,6 +5,7 @@ namespace App\Repository\Transport;
 use App\Models\Transport;
 use Illuminate\Database\Eloquent\Collection;
 use Patoughi\Common\Enums\BidStatusEnum;
+use Patoughi\Common\Enums\TransportAssignmentStatusEnum;
 use Patoughi\Common\Enums\TransportStatusEnum;
 use Patoughi\Common\Orm\Repositories\BaseRepository;
 
@@ -38,7 +39,11 @@ class TransportRepository extends BaseRepository implements TransportRepositoryI
         return $this->model->query()
             ->with(['order', 'vehicle', 'order', 'shipments', 'vehicleType', 'waybills'])
             ->where('driver_id', $driverId)
-            ->where('status', '=', TransportStatusEnum::IN_TRANSIT->value)
+            ->whereIn('assignment_status', [
+                TransportAssignmentStatusEnum::ASSIGNED,
+                TransportAssignmentStatusEnum::REASSIGNED,
+            ])
+            ->whereNot('status', TransportStatusEnum::PENDING->value)
             ->get();
     }
 }

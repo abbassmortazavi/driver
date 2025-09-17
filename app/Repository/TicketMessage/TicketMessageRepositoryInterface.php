@@ -2,7 +2,4 @@
 
 namespace App\Repository\TicketMessage;
 
-interface TicketMessageRepositoryInterface
-{
-
-}
+interface TicketMessageRepositoryInterface {}

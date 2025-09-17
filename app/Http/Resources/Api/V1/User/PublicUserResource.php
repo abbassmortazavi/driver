@@ -16,11 +16,12 @@ use Patoughi\Common\Enums\UserStatusEnum;
         'id',
         'status',
         'name',
-        'email',
+        'phone_number',
         'created_at',
         'updated_at',
         'blocked_at',
-        'driver_fulfillment_status'
+        'driver',
+        'driver_fulfillment_status',
     ],
     properties: [
         new OA\Property(property: 'id', type: 'string'),
@@ -43,7 +44,7 @@ use Patoughi\Common\Enums\UserStatusEnum;
                     property: 'biometric_status',
                     type: 'string',
                     enum: DriverBiometricStatusEnum::class
-                )
+                ),
             ],
             type: 'object',
             nullable: true
@@ -67,7 +68,7 @@ class PublicUserResource extends JsonResource
             'updated_at' => $this->updated_at,
             'blocked_at' => $this->blocked_at,
             'driver' => DriverResource::make($this->whenLoaded('driver')),
-            'driver_fulfillment_status' =>  $this->driverFulfillmentStatus(
+            'driver_fulfillment_status' => $this->driverFulfillmentStatus(
                 $this->whenLoaded('driver')
             ),
         ];
@@ -83,9 +84,9 @@ class PublicUserResource extends JsonResource
 
     private function driverIdentityStatus(?Driver $driver): string
     {
-        if($driver && $driver->identity_verified_at && $driver->profile_is_completed){
+        if ($driver && $driver->identity_verified_at && $driver->profile_is_completed) {
             return DriverIdentityStatusEnum::IDENTITY_VERIFIED->value;
-        } else if ($driver && $driver->identity_verified_at && !$driver->profile_is_completed) {
+        } elseif ($driver && $driver->identity_verified_at && ! $driver->profile_is_completed) {
             return DriverIdentityStatusEnum::NEED_To_COMPLETE_PROFILE->value;
         }
 
