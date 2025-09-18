@@ -13,7 +13,7 @@ return [
     |--------------------------------------------------------------------------
     |
     | This option defines the default log channel that is utilized to write
-    | messages.php to your logs. The value provided here should match one of
+    | messages to your logs. The value provided here should match one of
     | the channels present in the list of "channels" configured below.
     |
     */
@@ -54,7 +54,7 @@ return [
 
         'stack' => [
             'driver' => 'stack',
-            'channels' => explode(',', env('LOG_STACK', 'single')),
+            'channels' => explode(',', (string) env('LOG_STACK', 'single')),
             'ignore_exceptions' => false,
         ],
 
