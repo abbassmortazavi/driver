@@ -1,4 +1,4 @@
-name: "patoughi-driver"
+name: "driver"
 
 services:
   php:
@@ -6,9 +6,7 @@ services:
       context: ./
       dockerfile: Dockerfile
       target: production
-      secrets:
-        - composer_auth
-    image: patoughi/platform-tms-api:production
+    image: driver-api:production
     restart: unless-stopped
     command: [
       "php",
@@ -19,7 +17,7 @@ services:
     extra_hosts:
       - 'host.docker.internal:host-gateway'
     networks:
-      - patoughi
+      - driver
     ports:
       # HTTP
       - target: 8000
@@ -35,7 +33,7 @@ services:
     volumes:
       - 'mysql-data:/var/lib/mysql'
     networks:
-      - patoughi
+      - driver
     ports:
       - '${MYSQL_PORT:-3306}:3306'
     healthcheck:
@@ -48,7 +46,7 @@ services:
     volumes:
       - 'redis-data:/data'
     networks:
-      - patoughi
+      - driver
     healthcheck:
       test:
         - CMD
@@ -72,7 +70,7 @@ services:
     depends_on:
       - mysql
     networks:
-      - patoughi
+      - driver
 
   minio:
     image: 'minio/minio:latest'
@@ -83,7 +81,7 @@ services:
     volumes:
       - 'minio-data:/data/minio'
     networks:
-      - patoughi
+      - driver
     command: 'minio server /data/minio --console-address ":8900"'
     healthcheck:
       test:
@@ -97,12 +95,9 @@ services:
       - '${MINIO_PORT:-9000}:9000'
       - '${MINIO_CONSOLE_PORT:-8900}:8900'
 networks:
-  patoughi:
+  driver:
     external: true
 volumes:
   mysql-data:
   redis-data:
   minio-data:
-secrets:
-  composer_auth:
-    file: ./auth.json

@@ -1,4 +1,4 @@
-name: "patoughi-driver"
+name: "driver"
 
 services:
   php:

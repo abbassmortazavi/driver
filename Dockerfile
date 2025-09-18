@@ -94,8 +94,8 @@ COPY --link .docker/php/conf.d/app.dev.ini $PHP_INI_DIR/conf.d/
 COPY --link composer.* ./
 
 # Install PHP dependencies
-RUN --mount=type=secret,id=composer_auth,dst=/app/auth.json \
-    composer install --prefer-dist --no-progress --no-interaction --no-scripts
+RUN composer install --prefer-dist --no-dev --no-autoloader --no-scripts --no-progress --ignore-platform-reqs
+
 
 # ---------------------------------------------------------------------
 # Composer stage
@@ -107,13 +107,16 @@ WORKDIR /app
 ENV COMPOSER_ALLOW_SUPERUSER=1
 ENV COMPOSER_MEMORY_LIMIT=-1
 
-RUN mkdir -m 0600 ~/.ssh && \
-    ssh-keyscan github.com >> ~/.ssh/known_hosts
+
+RUN mkdir -m 0700 ~/.ssh \
+    && ssh-keyscan github.com >> ~/.ssh/known_hosts
 
 COPY composer.json composer.lock ./
 
-RUN --mount=type=secret,id=composer_auth,dst=/app/auth.json \
-    composer install --prefer-dist --no-dev --no-autoloader --no-scripts --no-progress --ignore-platform-reqs
+RUN composer install --prefer-dist --no-dev --no-scripts --no-progress --ignore-platform-reqs
+
+
+
 
 # ---------------------------------------------------------------------
 # Production stage
@@ -126,18 +129,11 @@ RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 
 COPY --link .docker/php/conf.d/app.prod.ini $PHP_INI_DIR/conf.d/
 
-COPY --link composer.* ./
-
 COPY --from=composer /app/vendor ./vendor/
-RUN --mount=type=secret,id=composer_auth,dst=/app/auth.json \
-    composer install --prefer-dist --no-dev --no-autoloader --no-scripts --no-progress
+COPY . .
 
-# Copy application sources
-COPY --link . ./
-
-RUN rm -Rf .docker/
-
-RUN composer dump-autoload --classmap-authoritative --no-dev && \
-    composer run-script --no-dev post-autoload-dump && \
-    chmod +x artisan && \
-    sync
+RUN rm -Rf .docker/ \
+    && composer dump-autoload --classmap-authoritative --no-dev \
+    && composer run-script post-autoload-dump --no-dev \
+    && chmod +x artisan \
+    && sync
